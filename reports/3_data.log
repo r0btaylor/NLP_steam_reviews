@@ -1,0 +1,57 @@
+Traceback (most recent call last):
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
+    executenb(
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\nbclient\client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\nbclient\util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\nbclient\util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\asyncio\base_events.py", line 646, in run_until_complete
+    return future.result()
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\nbclient\client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\nbclient\client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\nbclient\client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pandas as pd
+
+review_id = [x for x in review_dict['reviews']]
+date = [review_dict['reviews'][x]['timestamp_created'] for x in review_id]
+review_text = [review_dict['reviews'][x]['review'] for x in review_id]
+classification = [review_dict['reviews'][x]['classification'] for x in review_id]
+
+
+df = pd.DataFrame(list(zip(date,review_text,voted_up)),
+                 columns=['date','review_text','classification'])
+
+# calculate review text length, set as feature
+df['review_length'] = df['review_text'].str.split().str.len().fillna(0)
+
+df.head(10)
+------------------
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mKeyError[0m                                  Traceback (most recent call last)
+Input [1;32mIn [2][0m, in [0;36m<cell line: 6>[1;34m()[0m
+[0;32m      4[0m date [38;5;241m=[39m [review_dict[[38;5;124m'[39m[38;5;124mreviews[39m[38;5;124m'[39m][x][[38;5;124m'[39m[38;5;124mtimestamp_created[39m[38;5;124m'[39m] [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m review_id]
+[0;32m      5[0m review_text [38;5;241m=[39m [review_dict[[38;5;124m'[39m[38;5;124mreviews[39m[38;5;124m'[39m][x][[38;5;124m'[39m[38;5;124mreview[39m[38;5;124m'[39m] [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m review_id]
+[1;32m----> 6[0m classification [38;5;241m=[39m [review_dict[[38;5;124m'[39m[38;5;124mreviews[39m[38;5;124m'[39m][x][[38;5;124m'[39m[38;5;124mclassification[39m[38;5;124m'[39m] [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m review_id]
+[0;32m      9[0m df [38;5;241m=[39m pd[38;5;241m.[39mDataFrame([38;5;28mlist[39m([38;5;28mzip[39m(date,review_text,voted_up)),
+[0;32m     10[0m                  columns[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mdate[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mreview_text[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mclassification[39m[38;5;124m'[39m])
+[0;32m     12[0m [38;5;66;03m# calculate review text length, set as feature[39;00m
+
+Input [1;32mIn [2][0m, in [0;36m<listcomp>[1;34m(.0)[0m
+[0;32m      4[0m date [38;5;241m=[39m [review_dict[[38;5;124m'[39m[38;5;124mreviews[39m[38;5;124m'[39m][x][[38;5;124m'[39m[38;5;124mtimestamp_created[39m[38;5;124m'[39m] [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m review_id]
+[0;32m      5[0m review_text [38;5;241m=[39m [review_dict[[38;5;124m'[39m[38;5;124mreviews[39m[38;5;124m'[39m][x][[38;5;124m'[39m[38;5;124mreview[39m[38;5;124m'[39m] [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m review_id]
+[1;32m----> 6[0m classification [38;5;241m=[39m [[43mreview_dict[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mreviews[39;49m[38;5;124;43m'[39;49m[43m][49m[43m[[49m[43mx[49m[43m][49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mclassification[39;49m[38;5;124;43m'[39;49m[43m][49m [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m review_id]
+[0;32m      9[0m df [38;5;241m=[39m pd[38;5;241m.[39mDataFrame([38;5;28mlist[39m([38;5;28mzip[39m(date,review_text,voted_up)),
+[0;32m     10[0m                  columns[38;5;241m=[39m[[38;5;124m'[39m[38;5;124mdate[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mreview_text[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mclassification[39m[38;5;124m'[39m])
+[0;32m     12[0m [38;5;66;03m# calculate review text length, set as feature[39;00m
+
+[1;31mKeyError[0m: 'classification'
+KeyError: 'classification'
+
