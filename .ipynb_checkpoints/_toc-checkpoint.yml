@@ -1,0 +1,15 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: 1_intro
+chapters:
+- file: 2_method
+- file: 3_data
+- file: 4_eda
+- file: 5_nlp
+- file: 6_text_eda
+- file: 7_Model_Train
+- file: 8_Model_Test
+- file: 9_Model_Test
+- file: bibliography.md
