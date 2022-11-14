@@ -11,4 +11,4 @@
 # 
 # Several models will be explored and the most effective applied to classify user reviews.
 # 
-# After successful classification, weighted noun tokens will be extracted to identify prominent elements associated with each classification.
+# After successful classification, weighted noun tokens will be extracted to identify prominent elements associated with each classification. The intention is that these will reveal salient aspects of game design leading to positive or negative categorisation.

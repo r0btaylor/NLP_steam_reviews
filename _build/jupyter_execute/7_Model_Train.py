@@ -6,7 +6,7 @@
 # 3 classification models are applied to the training data:
 # * Multinomial Naive Bayes
 # * Logistic Regression
-# * Support Vecotr Machine (linear kernel)
+# * Support Vector Machine (linear kernel)
 # 
 # A pipeline is created for each to cross validate several options and hyper parameters. These include:
 # * Vectorisation method (CountVectorizer, TfidfTransformer)
@@ -14,6 +14,8 @@
 # * Model specific hyperparameters
 # 
 # 5-fold cross-validation is performed for each and F1 accuracy scores obtained. Best parameters and best mean score for each are retained
+# 
+# All machine learning function are provided by the Scikit-Learn library {cite}`sklearn_2011`.
 
 # ## Load Data
 
@@ -25,7 +27,7 @@ import numpy as np
 
 # load data ----
 train_df = pd.read_csv('data/train_data_lemma.csv')
-train_df = train_df[train_df['review_text'].str.split().str.len()>=1]
+#train_df = train_df[train_df['review_text'].str.split().str.len()>=1]
 # assign x and y
 X_train = train_df.drop(columns = ['classification'])
 y_train = train_df[['classification']]
@@ -66,7 +68,7 @@ lr_grid.fit(X_train.review_text, y_train)
 
 print("Best score: %0.3f" % lr_grid.best_score_)
 print("Best parameters:")
-lr_grid.best_params_
+print(lr_grid.best_params_)
 
 
 # ## Naive Bayes
@@ -96,7 +98,7 @@ nb_grid.fit(X_train.review_text, y_train)
 
 print("Best score: %0.3f" % nb_grid.best_score_)
 print("Best parameters:")
-nb_grid.best_params_
+print(nb_grid.best_params_)
 
 
 # ## Support Vector Machine (linear kernel)
@@ -121,17 +123,18 @@ parameters = {
      "svm__C": (0.001, 0.01, 0.1, 1, 10)
 }
 
-svm_grid = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=1, scoring='f1')
+svm_grid = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=0, scoring='f1')
 svm_grid.fit(X_train.review_text, y_train)
 
 print("Best score: %0.3f" % svm_grid.best_score_)
 print("Best parameters:")
-svm_grid.best_params_
+print(svm_grid.best_params_)
 
 
+# ## Summary
 # Accuracy scores are very similar for the best performing parameters of each model.
 # 
-# Results are so close that each model will be evaluated against the test data
+# Results are so close that each model will be applied to the test data for comparison.
 
 # In[5]:
 
@@ -148,11 +151,13 @@ ax = sns.barplot(
     palette=["#FF6F69","#ffcc5c","#88D8B0"])
 
 ax.bar_label(ax.containers[0],fmt='%.3f')
-plt.title('Classification Model Performance',fontsize=14)
+plt.title('Classification Model Performance (Train',fontsize=14)
 plt.tick_params(labelsize=12)
 plt.tight_layout()
 plt.show();
 
+
+# ### Store Trained Models
 
 # In[6]:
 

@@ -36,7 +36,7 @@ df.drop(columns = 'index',inplace=True)
 # 
 # Graphing the frequency of each review category demonstrates some imbalance between the review classifications. 
 # 
-# Imbalance present is not extreme (60:40) and should not pose any particular challenge for model training. However, resampling will be investigated to ascertain whether this would impact results.  
+# Slight class imbalance is present (60:40) but this should not pose any particular challenge for model training. However, should training results indicate poor classification performance, then resampling strategies will be investigated.  
 
 # In[2]:
 
@@ -116,7 +116,7 @@ plt.title('Distribution of Review Lengths\n(Outliers Suppressed)');
 
 
 # plot mean review length over time
-ax =sns.lineplot(x=df['date'].dt.strftime('%b %d'),
+ax =sns.lineplot(x=sorted(df['date'].dt.strftime('%m %d')),
             y='review_length',
             palette = ['#88D8B0', '#FF6F69'],
             hue='classification',
@@ -124,10 +124,11 @@ ax =sns.lineplot(x=df['date'].dt.strftime('%b %d'),
             )
 
 plt.xlabel("")
-plt.xticks(rotation=45)
+ax.set_xticks(list(range(len(df['date'].unique()))),size=4)
+ax.set_xticklabels(df['date'].sort_values().dt.strftime('%b %d').unique(), ha="right",rotation=45)
 plt.ylabel("Mean Word Count",fontsize=14)
-plt.legend(loc=0,fontsize='13')
+plt.legend(loc=0,fontsize='12')
 plt.title("Review Length Over Time",fontsize=14)
-plt.tick_params(labelsize=14)
+plt.tick_params(labelsize=12)
 plt.tight_layout();
 

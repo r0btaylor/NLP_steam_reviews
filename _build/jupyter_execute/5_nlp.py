@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# (references:NLP)=
 # # Natural Language Processing
 # 
 # The following natural language processing pipeline is performed to clean and process text ready for text-based exloratory analysis.
@@ -36,7 +37,12 @@ df.drop(columns = 'index',inplace=True)
 # 
 # Here text is cleaned and prepared for the proceeding NLP pipeline.  
 # At each step, a function is created and mapped to the `review_text` variable.
-# 
+
+# `````{admonition} Note
+# :class: tip
+# All functions are also stored in a seperate file .py file to be called again later in model testing.
+# `````
+
 # ### Lower Case
 # All capitalisation is removed from the text
 
@@ -153,31 +159,11 @@ with option_context('display.max_colwidth', 200):
     display(df[["review_text"]].head())
 
 
-# ```{warning}
-# Removal of all non-alpha characters may produce additional reviews without any text.    
-# Dropping observations is neccessary to prevent errors during the NLP process.
-# ```
-
-# In[5]:
-
-
-# quantify missing
-display(pd.DataFrame({'Missing':len(df.loc[df['review_text'].str.split().str.len()<1]),
-        'Present':len(df.loc[df['review_text'].str.split().str.len()>0]),
-       'Total':len(df)},index = ['Review Text']))
-
-# drop entries with no review text
-df = df[df['review_text'].str.split().str.len()>=1]
-
-with option_context('display.max_colwidth', 200):
-    display(df[["review_text"]].head())
-
-
 # ### Consecutive Removal
 # 
 # Identify and remove consecutive word duplicates and replace excessive duplicate characters (>2).
 
-# In[6]:
+# In[5]:
 
 
 # define duplicate removal function
@@ -190,9 +176,6 @@ def consec_dup(text):
 
 # map to all review data
 df['review_text'] = df['review_text'].map(consec_dup)
-
-# drop entries with no review text
-df = df[df['review_text'].str.split().str.len()>=1]
 
 with option_context('display.max_colwidth', 200):
     display(df[["review_text"]].head())
@@ -217,10 +200,34 @@ with option_context('display.max_colwidth', 200):
 # Lemmatisation is provided by  the `spaCy` module {cite}`spacy_2020`.
 # 
 
-# In[7]:
+# In[6]:
 
 
-get_ipython().run_cell_magic('capture', '--no-stderr', 'import nltk\nfrom nltk.corpus import stopwords\nfrom collections import Counter\n\n# import stopwords and extend list\nstpwrds = nltk.corpus.stopwords.words(\'english\')\nnewStpWrds = ["game","play"]\nstpwrds.extend(newStpWrds)\n\n# create dictionary to increase processing speed\nstpdict = Counter(stpwrds)\n\nimport spacy\nnlp = spacy.load("en_core_web_trf")\nimport torch\ndevice = torch.device("cpu")\n\ndef lemma(text):\n    doc = nlp(text)\n    text = [token.lemma_ for token in doc if token.text not in stpdict]\n    text = " ".join(text)\n    return text\n\ndf[\'review_text\'] = df[\'review_text\'].map(lemma)\n\nwith option_context(\'display.max_colwidth\', 200):\n    display(df[["review_text"]].head())')
+import nltk
+from nltk.corpus import stopwords
+from collections import Counter
+
+# import stopwords and extend list
+stpwrds = nltk.corpus.stopwords.words('english')
+newStpWrds = ["game","play"]
+stpwrds.extend(newStpWrds)
+
+# create dictionary to increase processing speed
+stpdict = Counter(stpwrds)
+
+import spacy
+nlp = spacy.load("en_core_web_sm")
+
+def lemma(text):
+    doc = nlp(text)
+    text = [token.lemma_ for token in doc if token.text not in stpdict]
+    text = " ".join(text)
+    return text
+
+df['review_text'] = df['review_text'].map(lemma)
+
+with option_context('display.max_colwidth', 200):
+    display(df[["review_text"]].head())
 
 
 # A final check is made to remove entries with no review text.
@@ -230,7 +237,7 @@ get_ipython().run_cell_magic('capture', '--no-stderr', 'import nltk\nfrom nltk.c
 # This concludes the creation of the final training data.
 # 
 
-# In[8]:
+# In[7]:
 
 
 # quantify missing
@@ -239,7 +246,7 @@ display(pd.DataFrame({'Missing':len(df.loc[df['review_text'].str.split().str.len
        'Total':len(df)},index = ['Review Text']))
 
 # drop entries with no review text
-df = df[df['review_text'].str.split().str.len()>=1]
+df = df.drop(df[df['review_text'].str.split().str.len()<1].index)
 
 # drop length variable
 df.drop('review_length', axis = 1, inplace=True)
@@ -247,5 +254,5 @@ df.drop('review_length', axis = 1, inplace=True)
 # write clean training data to csv
 df.to_csv('data/train_data_lemma.csv',index=False)
 
-df.head()
+df
 

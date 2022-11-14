@@ -11,5 +11,5 @@ chapters:
 - file: 6_text_eda
 - file: 7_Model_Train
 - file: 8_Model_Test
-- file: 9_Model_Test
+- file: 9_Conclusions
 - file: bibliography.md

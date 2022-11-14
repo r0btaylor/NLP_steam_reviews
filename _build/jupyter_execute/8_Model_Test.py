@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Modelling - Testing & Interpretation
+# All trained models will be applied to the test data and performance accuracy compared.
+# 
 # ## Load Data
 
 # In[1]:
@@ -27,13 +30,19 @@ y_test = y_test.values.ravel()
 y_test = np.where(y_test=='Negative', 1, 0)
 
 
-# ## Load Functions
+# ## Cleaning
+# 
+# Functions previously defined in {ref}`references:NLP` are applied to the test data.
 
 # In[2]:
 
 
+# Load functions defined in 'functions.py'
 from functions import lower_case,expandContractions,alpha_num,consec_dup,lemma
+import spacy
+nlp = spacy.load("en_core_web_sm")
 
+# Map functions
 for func in [lower_case,expandContractions,alpha_num,consec_dup,lemma]:
     X_test['review_text'] = X_test['review_text'].map(func)
 
@@ -62,13 +71,15 @@ svm.fit(X_test['review_text'],y_test)
 
 
 # ## Evaluation
+# 
+# The following confusion matrices indicate that some misclassification occurs. However all models quite successfully classify both the positive and negative categories.
 
 # ### Naive Bayes
 
 # In[5]:
 
 
-from sklearn.metrics import ConfusionMatrixDisplay, classification_report
+from sklearn.metrics import ConfusionMatrixDisplay, f1_score
 import matplotlib.pyplot as plt
 
 nb_pred = nb.predict(X_test['review_text'])
@@ -77,7 +88,7 @@ ConfusionMatrixDisplay.from_estimator(nb, X_test['review_text'],
                                       colorbar = False,
                                       cmap=plt.cm.YlGnBu)
 
-print(classification_report(y_test,nb_pred))
+print(f'F1 Score: {f1_score(y_test, nb_pred)}')
 
 
 # ### Logistic Regression
@@ -91,7 +102,7 @@ ConfusionMatrixDisplay.from_estimator(lr, X_test['review_text'],
                                       colorbar = False,
                                       cmap=plt.cm.YlGnBu)
 
-print(classification_report(y_test,lr_pred))
+print(f'F1 Score: {f1_score(y_test, lr_pred)}')
 
 
 # ### Support Vector Machine (linear kernel)
@@ -105,19 +116,108 @@ ConfusionMatrixDisplay.from_estimator(svm, X_test['review_text'],
                                       colorbar = False,
                                       cmap=plt.cm.YlGnBu)
 
-print(classification_report(y_test,svm_pred))
+print(f'F1 Score: {f1_score(y_test, svm_pred)}')
 
+
+# ## Summary
+# Performance of all models is very good and all demonstrated F1 scores greater than 0.95.
+# 
+# Logistic Regression performed marginally better and so shall be utilised in subsequent interpretation.
 
 # In[8]:
 
 
-coefs = lr.named_steps['lr'].coef_.ravel().tolist()
-words = lr.named_steps['vect'].get_feature_names_out().tolist()
+import seaborn as sns
 
+# plot model performance
+sns.set_style('whitegrid')
+ax = sns.barplot(
+    data=pd.DataFrame([['NB', f1_score(y_test, nb_pred)], ['LR', f1_score(y_test, lr_pred)], ['SVM', f1_score(y_test, svm_pred)]],columns=['Model','F1 Score']),
+    x="Model",
+    y='F1 Score',
+    palette=["#FF6F69","#ffcc5c","#88D8B0"])
+
+ax.bar_label(ax.containers[0],fmt='%.3f')
+plt.title('Classification Model Performance (Test)',fontsize=14)
+plt.tick_params(labelsize=12)
+plt.tight_layout()
+plt.show()
+
+
+# ## Interpretation
+# 
+# Lists of tokens and their associated coefficients are extracted from the fitted model.
+# 
+# Part of speech tagging is then applied and the relevant tags stored.
+# 
+# This enables the most relevant nouns for each classification to be extracted by identifying those with extreme negative/positive coefficients.
 
 # In[9]:
 
 
-pd.DataFrame({'Tokens': words,
-              'Coefs': coefs}).sort_values(by='Coefs',ascending=False,ignore_index=True).head(30)
+# Load NLP pipeline
+import spacy
+spacy.require_cpu()
+nlp = spacy.load("en_core_web_sm")
+
+# Extract coefficients from model
+coefs = lr.named_steps['lr'].coef_.ravel().tolist()
+
+# Extract word list from model
+words = lr.named_steps['vect'].get_feature_names_out().tolist()
+words = pd.Series(words)
+
+# POS tagging
+def pos(text):
+    doc = nlp(text)
+    text = [token.pos_ for token in doc]
+    text = " ".join(text)
+    return text
+pos = words.map(pos)
+
+# Store as data frame
+df1 = pd.DataFrame({
+    'POS': pos,
+    'Words': words,
+    'Coefs': coefs})
+
+
+# ### Negative Classification
+
+# In[10]:
+
+
+sns.set_style('whitegrid')
+fig, ax = plt.subplots(figsize=(8,7))
+sns.barplot(data = df1[df1['POS'].str.contains("NOUN")].sort_values(by='Coefs',ascending=False,ignore_index=True).head(20),
+        y = 'Words',
+        x = 'Coefs',
+        color="#FF6F69")
+        
+#ax.invert_yaxis()
+ax.tick_params(labelsize=14)
+ax.set(title="Top 20 Tokens: Negative Reviews",
+       xlabel="Coefficient")
+
+fig.savefig('images/negtokens.png',bbox_inches = "tight");
+
+
+# ### Positive Classification
+
+# In[11]:
+
+
+sns.set_style('whitegrid')
+fig, ax = plt.subplots(figsize=(8,7))
+sns.barplot(data = df1[df1['POS'].str.contains("NOUN")].sort_values(by='Coefs',ascending=True,ignore_index=True).head(20),
+        y = 'Words',
+        x = 'Coefs',
+        color="#88D8B0")
+        
+ax.invert_xaxis()
+ax.tick_params(labelsize=14)
+ax.set(title="Top 20 Tokens: Positive Reviews",
+       xlabel="Coefficient")
+
+fig.savefig('images/postokens.png',bbox_inches = "tight");
 

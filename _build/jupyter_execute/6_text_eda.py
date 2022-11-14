@@ -7,25 +7,20 @@
 # 
 # This is initially achieved using the 'bag of words' approach and the `CountVectorizer` from Scikit-Learn {cite}`sklearn_2011`.
 
-# In[2]:
+# In[1]:
 
 
 import pandas as pd
 
+# load data
+df = pd.read_csv('data/train_data_lemma.csv')
 # quantify missing
-display(pd.DataFrame({'Missing':len(df.loc[df['review_text'].str.split().str.len()<1]),
+display(pd.DataFrame({'Missing':len(df[df['review_text'].isna()]),
         'Present':len(df.loc[df['review_text'].str.split().str.len()>0]),
        'Total':len(df)},index = ['Review Text']))
 
-
-# In[4]:
-
-
-# load data
-df = pd.read_csv('data/train_data_lemma.csv')
-
 # drop entries with no review text
-df = df[df['review_text'].str.split().str.len()>=1]
+#df = df[df['review_text'].str.split().str.len()>=1]
 display(df.head())
 
 from sklearn.feature_extraction.text import CountVectorizer
@@ -42,9 +37,9 @@ print(f"Unique words in sample = {bow.shape[1]}")
 # 
 # ### All Reviews
 # 
-# Here we can see the most commonly occuring nouns from across all reviews in the training dataset.
+# Here we can see the most commonly occuring words from across all reviews in the training dataset.
 
-# In[5]:
+# In[2]:
 
 
 import matplotlib.pyplot as plt
@@ -66,9 +61,9 @@ ax.set(title="Word Frequency: All Reviews",
 # 
 # Comparing the words from within each review classification again reveals a balance between the two.
 # 
-# While several (7119) are shared acorss both positive and negative review categorisations, a relatively equal number of words distinguish each category.
+# While several (7381) are shared acorss both positive and negative review categorisations, a relatively equal number of words distinguish each category.
 
-# In[6]:
+# In[3]:
 
 
 # create postive and negative bag of words               
@@ -88,6 +83,8 @@ plt.title("Shared Word Comparison");
 
 
 # The following plot displays the most frequently occurring words common to both review classifications.
+# 
+# Notably, 'crash' features more prominently in negative reviews while (as would be expected) 'good' features more prominently in positive reviews.
 
 # In[4]:
 
