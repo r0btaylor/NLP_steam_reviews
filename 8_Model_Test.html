@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Load Data &#8212; Using NLP to Extract Insight from Steam Reviews</title>
+    <title>Modelling - Testing &amp; Interpretation &#8212; Using NLP to Extract Insight from Steam Reviews</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="next" title="Conclusions" href="9_Conclusions.html" />
     <link rel="prev" title="Modelling - Training" href="7_Model_Train.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -90,6 +90,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/steam_logo.jpg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Using NLP to Extract Insight from Steam Reviews</h1>
@@ -141,7 +146,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Load Data
+   Modelling - Testing &amp; Interpretation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_Conclusions.html">
+   Conclusions
   </a>
  </li>
  <li class="toctree-l1">
@@ -208,7 +218,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/8_Model_Test.ipynb"
+        <a href="https://mybinder.org/v2/gh/r0btaylor/NLP_steam_reviews/master?urlpath=tree/docs/8_Model_Test.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -251,7 +261,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book"
+        <a href="https://github.com/r0btaylor/NLP_steam_reviews"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -268,7 +278,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F8_Model_Test.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/r0btaylor/NLP_steam_reviews/issues/new?title=Issue%20on%20page%20%2F8_Model_Test.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -355,51 +365,73 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data">
    Load Data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-functions">
-   Load Functions
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cleaning">
+   Cleaning
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#testing">
    Testing
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#load-trained-models">
      Load Trained Models
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#fit-models-to-test-data">
      Fit Models to Test Data
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#evaluation">
    Evaluation
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#naive-bayes">
      Naive Bayes
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#logistic-regression">
      Logistic Regression
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#support-vector-machine-linear-kernel">
      Support Vector Machine (linear kernel)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpretation">
+   Interpretation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#negative-classification">
+     Negative Classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#positive-classification">
+     Positive Classification
     </a>
    </li>
   </ul>
@@ -413,7 +445,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Load Data</h1>
+                <h1>Modelling - Testing & Interpretation</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -423,51 +455,73 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data">
    Load Data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-functions">
-   Load Functions
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cleaning">
+   Cleaning
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#testing">
    Testing
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#load-trained-models">
      Load Trained Models
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#fit-models-to-test-data">
      Fit Models to Test Data
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#evaluation">
    Evaluation
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#naive-bayes">
      Naive Bayes
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#logistic-regression">
      Logistic Regression
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#support-vector-machine-linear-kernel">
      Support Vector Machine (linear kernel)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpretation">
+   Interpretation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#negative-classification">
+     Negative Classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#positive-classification">
+     Positive Classification
     </a>
    </li>
   </ul>
@@ -482,9 +536,12 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="load-data">
-<h1>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h1>
-<div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="modelling-testing-interpretation">
+<h1>Modelling - Testing &amp; Interpretation<a class="headerlink" href="#modelling-testing-interpretation" title="Permalink to this headline">#</a></h1>
+<p>All trained models will be applied to the test data and performance accuracy compared.</p>
+<section id="load-data">
+<h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h2>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data processing</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -510,30 +567,29 @@ title="Print to PDF"
 </div>
 </div>
 </section>
-<section id="load-functions">
-<h1>Load Functions<a class="headerlink" href="#load-functions" title="Permalink to this headline">#</a></h1>
-<div class="cell docutils container">
+<section id="cleaning">
+<h2>Cleaning<a class="headerlink" href="#cleaning" title="Permalink to this headline">#</a></h2>
+<p>Functions previously defined in <a class="reference internal" href="5_nlp.html#references-nlp"><span class="std std-ref">Natural Language Processing</span></a> are applied to the test data.</p>
+<div class="cell tag_hide-input tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functions</span> <span class="kn">import</span> <span class="n">lower_case</span><span class="p">,</span><span class="n">expandContractions</span><span class="p">,</span><span class="n">alpha_num</span><span class="p">,</span><span class="n">consec_dup</span><span class="p">,</span><span class="n">lemma</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load functions defined in &#39;functions.py&#39;</span>
+<span class="kn">from</span> <span class="nn">functions</span> <span class="kn">import</span> <span class="n">lower_case</span><span class="p">,</span><span class="n">expandContractions</span><span class="p">,</span><span class="n">alpha_num</span><span class="p">,</span><span class="n">consec_dup</span><span class="p">,</span><span class="n">lemma</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
 
+<span class="c1"># Map functions</span>
 <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="p">[</span><span class="n">lower_case</span><span class="p">,</span><span class="n">expandContractions</span><span class="p">,</span><span class="n">alpha_num</span><span class="p">,</span><span class="n">consec_dup</span><span class="p">,</span><span class="n">lemma</span><span class="p">]:</span>
     <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\torch\amp\autocast_mode.py:198: UserWarning: User provided device_type of &#39;cuda&#39;, but CUDA is not available. Disabling
-  warnings.warn(&#39;User provided device_type of \&#39;cuda\&#39;, but CUDA is not available. Disabling&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="testing">
-<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">#</a></h1>
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">#</a></h2>
 <section id="load-trained-models">
-<h2>Load Trained Models<a class="headerlink" href="#load-trained-models" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
+<h3>Load Trained Models<a class="headerlink" href="#load-trained-models" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load trained models</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -546,8 +602,8 @@ title="Print to PDF"
 </div>
 </section>
 <section id="fit-models-to-test-data">
-<h2>Fit Models to Test Data<a class="headerlink" href="#fit-models-to-test-data" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
+<h3>Fit Models to Test Data<a class="headerlink" href="#fit-models-to-test-data" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input tag_hide-output tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">],</span><span class="n">y_test</span><span class="p">)</span>
 <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">],</span><span class="n">y_test</span><span class="p">)</span>
@@ -555,22 +611,17 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;vect&#x27;, CountVectorizer(ngram_range=(1, 2))),
-                (&#x27;tfidf&#x27;, TfidfTransformer()),
-                (&#x27;svm&#x27;, SVC(C=1, kernel=&#x27;linear&#x27;, random_state=1))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;vect&#x27;, CountVectorizer(ngram_range=(1, 2))),
-                (&#x27;tfidf&#x27;, TfidfTransformer()),
-                (&#x27;svm&#x27;, SVC(C=1, kernel=&#x27;linear&#x27;, random_state=1))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">CountVectorizer</label><div class="sk-toggleable__content"><pre>CountVectorizer(ngram_range=(1, 2))</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">TfidfTransformer</label><div class="sk-toggleable__content"><pre>TfidfTransformer()</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC(C=1, kernel=&#x27;linear&#x27;, random_state=1)</pre></div></div></div></div></div></div></div></div></div>
 </div>
 </section>
 </section>
 <section id="evaluation">
-<h1>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">#</a></h1>
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">#</a></h2>
+<p>The following confusion matrices indicate that some misclassification occurs. However all models quite successfully classify both the positive and negative categories.</p>
 <section id="naive-bayes">
-<h2>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
+<h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">classification_report</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">f1_score</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">nb_pred</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">])</span>
@@ -579,19 +630,12 @@ title="Print to PDF"
                                       <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                                       <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">YlGnBu</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">nb_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score: </span><span class="si">{</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">nb_pred</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
-
-           0       0.97      0.98      0.97      5174
-           1       0.97      0.95      0.96      3477
-
-    accuracy                           0.97      8651
-   macro avg       0.97      0.96      0.96      8651
-weighted avg       0.97      0.97      0.97      8651
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1 Score: 0.9561066171595279
 </pre></div>
 </div>
 <img alt="_images/8_Model_Test_10_1.png" src="_images/8_Model_Test_10_1.png" />
@@ -599,8 +643,8 @@ weighted avg       0.97      0.97      0.97      8651
 </div>
 </section>
 <section id="logistic-regression">
-<h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
+<h3>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lr_pred</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">])</span>
 <span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">],</span> 
@@ -608,19 +652,12 @@ weighted avg       0.97      0.97      0.97      8651
                                       <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                                       <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">YlGnBu</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">lr_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score: </span><span class="si">{</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_pred</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
-
-           0       0.97      0.98      0.98      5174
-           1       0.97      0.96      0.97      3477
-
-    accuracy                           0.97      8651
-   macro avg       0.97      0.97      0.97      8651
-weighted avg       0.97      0.97      0.97      8651
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1 Score: 0.966490765171504
 </pre></div>
 </div>
 <img alt="_images/8_Model_Test_12_1.png" src="_images/8_Model_Test_12_1.png" />
@@ -628,8 +665,8 @@ weighted avg       0.97      0.97      0.97      8651
 </div>
 </section>
 <section id="support-vector-machine-linear-kernel">
-<h2>Support Vector Machine (linear kernel)<a class="headerlink" href="#support-vector-machine-linear-kernel" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
+<h3>Support Vector Machine (linear kernel)<a class="headerlink" href="#support-vector-machine-linear-kernel" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svm_pred</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">])</span>
 <span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">svm</span><span class="p">,</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">],</span> 
@@ -637,217 +674,134 @@ weighted avg       0.97      0.97      0.97      8651
                                       <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                                       <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">YlGnBu</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">svm_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score: </span><span class="si">{</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">svm_pred</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
-
-           0       0.97      0.98      0.97      5174
-           1       0.96      0.95      0.96      3477
-
-    accuracy                           0.96      8651
-   macro avg       0.96      0.96      0.96      8651
-weighted avg       0.96      0.96      0.96      8651
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1 Score: 0.955637707948244
 </pre></div>
 </div>
 <img alt="_images/8_Model_Test_14_1.png" src="_images/8_Model_Test_14_1.png" />
 </div>
 </div>
-<div class="cell docutils container">
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>Performance of all models is very good and all demonstrated F1 scores greater than 0.95.</p>
+<p>Logistic Regression performed marginally better and so shall be utilised in subsequent interpretation.</p>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coefs</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">words</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;vect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Tokens&#39;</span><span class="p">:</span> <span class="n">words</span><span class="p">,</span>
-              <span class="s1">&#39;Coefs&#39;</span><span class="p">:</span> <span class="n">coefs</span><span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Coefs&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># plot model performance</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s1">&#39;NB&#39;</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">nb_pred</span><span class="p">)],</span> <span class="p">[</span><span class="s1">&#39;LR&#39;</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_pred</span><span class="p">)],</span> <span class="p">[</span><span class="s1">&#39;SVM&#39;</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">svm_pred</span><span class="p">)]],</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span><span class="s1">&#39;F1 Score&#39;</span><span class="p">]),</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Model&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;F1 Score&#39;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#FF6F69&quot;</span><span class="p">,</span><span class="s2">&quot;#ffcc5c&quot;</span><span class="p">,</span><span class="s2">&quot;#88D8B0&quot;</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Classification Model Performance (Test)&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Tokens</th>
-      <th>Coefs</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>garbage</td>
-      <td>7.311678</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>refund</td>
-      <td>7.297232</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>boring</td>
-      <td>6.350763</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>broken</td>
-      <td>6.088720</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>constantly</td>
-      <td>5.930773</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>bad cod</td>
-      <td>5.913993</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>even</td>
-      <td>5.492677</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>unfinished</td>
-      <td>5.438177</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>dollar</td>
-      <td>5.282288</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>save</td>
-      <td>4.954841</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>unplayable</td>
-      <td>4.821987</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>mess</td>
-      <td>4.749823</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>ban</td>
-      <td>4.710050</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>trash</td>
-      <td>4.679306</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>sbmm</td>
-      <td>4.632377</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>beta</td>
-      <td>4.584399</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>work</td>
-      <td>4.362599</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>hardcore</td>
-      <td>4.273983</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>crap</td>
-      <td>4.178700</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>joke</td>
-      <td>4.139538</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>fucking</td>
-      <td>4.072457</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>dogshit</td>
-      <td>4.065279</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>euro</td>
-      <td>4.060165</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>state</td>
-      <td>3.985801</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>start</td>
-      <td>3.898068</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>waste</td>
-      <td>3.890779</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>activision</td>
-      <td>3.841820</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>disappointing</td>
-      <td>3.830203</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>flag</td>
-      <td>3.827639</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>ruin</td>
-      <td>3.813806</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<img alt="_images/8_Model_Test_16_0.png" src="_images/8_Model_Test_16_0.png" />
 </div>
+</div>
+</section>
+<section id="interpretation">
+<h2>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this headline">#</a></h2>
+<p>Lists of tokens and their associated coefficients are extracted from the fitted model.</p>
+<p>Part of speech tagging is then applied and the relevant tags stored.</p>
+<p>This enables the most relevant nouns for each classification to be extracted by identifying those with extreme negative/positive coefficients.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load NLP pipeline</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="n">spacy</span><span class="o">.</span><span class="n">require_cpu</span><span class="p">()</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+
+<span class="c1"># Extract coefficients from model</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># Extract word list from model</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;vect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+<span class="c1"># POS tagging</span>
+<span class="k">def</span> <span class="nf">pos</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">words</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+<span class="c1"># Store as data frame</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;POS&#39;</span><span class="p">:</span> <span class="n">pos</span><span class="p">,</span>
+    <span class="s1">&#39;Words&#39;</span><span class="p">:</span> <span class="n">words</span><span class="p">,</span>
+    <span class="s1">&#39;Coefs&#39;</span><span class="p">:</span> <span class="n">coefs</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="negative-classification">
+<h3>Negative Classification<a class="headerlink" href="#negative-classification" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;POS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;NOUN&quot;</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Coefs&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Words&#39;</span><span class="p">,</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Coefs&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FF6F69&quot;</span><span class="p">)</span>
+        
+<span class="c1">#ax.invert_yaxis()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Top 20 Tokens: Negative Reviews&quot;</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Coefficient&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/negtokens.png&#39;</span><span class="p">,</span><span class="n">bbox_inches</span> <span class="o">=</span> <span class="s2">&quot;tight&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8_Model_Test_20_0.png" src="_images/8_Model_Test_20_0.png" />
+</div>
+</div>
+</section>
+<section id="positive-classification">
+<h3>Positive Classification<a class="headerlink" href="#positive-classification" title="Permalink to this headline">#</a></h3>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;POS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;NOUN&quot;</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Coefs&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Words&#39;</span><span class="p">,</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Coefs&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#88D8B0&quot;</span><span class="p">)</span>
+        
+<span class="n">ax</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Top 20 Tokens: Positive Reviews&quot;</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Coefficient&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/postokens.png&#39;</span><span class="p">,</span><span class="n">bbox_inches</span> <span class="o">=</span> <span class="s2">&quot;tight&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8_Model_Test_22_0.png" src="_images/8_Model_Test_22_0.png" />
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -885,10 +839,10 @@ weighted avg       0.96      0.96      0.96      8651
             <p class="prev-next-title">Modelling - Training</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="bibliography.html" title="next page">
+    <a class='right-next' id="next-link" href="9_Conclusions.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Bibliography</p>
+        <p class="prev-next-title">Conclusions</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Exploratory Data Analysis" href="4_eda.html" />
-    <link rel="prev" title="Data Mining Steam Reviews" href="1_intro.html" />
+    <link rel="prev" title="Method" href="2_method.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -90,6 +90,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/steam_logo.jpg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Using NLP to Extract Insight from Steam Reviews</h1>
@@ -109,6 +114,11 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_method.html">
+   Method
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    The Data
@@ -127,6 +137,26 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="6_text_eda.html">
    Text Based Exploratory Data Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_Model_Train.html">
+   Modelling - Training
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Model_Test.html">
+   Modelling - Testing &amp; Interpretation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_Conclusions.html">
+   Conclusions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography
   </a>
  </li>
 </ul>
@@ -188,7 +218,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/3_data.ipynb"
+        <a href="https://mybinder.org/v2/gh/r0btaylor/NLP_steam_reviews/master?urlpath=tree/docs/3_data.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -231,7 +261,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book"
+        <a href="https://github.com/r0btaylor/NLP_steam_reviews"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -248,7 +278,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F3_data.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/r0btaylor/NLP_steam_reviews/issues/new?title=Issue%20on%20page%20%2F3_data.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -380,10 +410,10 @@ title="Print to PDF"
 <img alt="https://cdn.akamai.steamstatic.com/steam/apps/1938090/header.jpg?t=1668017465" src="https://cdn.akamai.steamstatic.com/steam/apps/1938090/header.jpg?t=1668017465" />
 </figure>
 <p>Review data for the title <a class="reference external" href="https://store.steampowered.com/app/1938090/Call_of_Duty_Modern_Warfare_II/">‘Call of Duty: Modern Warfare 2’</a> published by Activision were collected.</p>
-<p>At the time of access (2022-11-11), this title held a ‘Mixed’ review score based on 68,626 user reviews.</p>
-<p>The Steam store uses a binary review classification system in which users can ‘recommend’ or ‘not recommend’ a title. Many titles display severely skewed review classifications which would generate an extremely unbalanced sample. The ‘Mixed’ classification of this title indicates a more even split between the possible review classifications.</p>
-<p>Reviews were scraped from the Steam store using the <code class="docutils literal notranslate"><span class="pre">steamreviews</span></code> API for Python <span id="id1">[]</span>.</p>
-<div class="cell tag_hide-input tag_hide-output docutils container">
+<p>At the time of access (2022-11-14), this title held a ‘Mixed’ review score based on 68,626 user reviews.</p>
+<p>The Steam store uses a binary review classification system in which users can ‘recommend’ or ‘not recommend’ a title. Many titles display severely skewed review classifications which would generate an extremely imbalanced sample. The ‘Mixed’ classification of this title indicates a more even split between the possible review classifications.</p>
+<p>Reviews were scraped from the Steam store using the <code class="docutils literal notranslate"><span class="pre">steamreviews</span></code> API for Python <span id="id1">[<a class="reference internal" href="bibliography.html#id6" title="Wok. Steamreviews: An API to download Steam reviews. 2018. URL: https://github.com/woctezuma/download-steam-reviews (visited on 2022-04-01).">Wok, 2018</a>]</span>.</p>
+<div class="cell tag_hide-input tag_hide-output tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># api access</span>
 <span class="kn">import</span> <span class="nn">steamreviews</span>
@@ -399,15 +429,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[appID = 1938090] expected #reviews = 43294
-Number of queries 150 reached. Cooldown: 310 seconds
-Number of queries 150 reached. Cooldown: 310 seconds
-</pre></div>
 </div>
-</div>
-</div>
-<p>All available English language reviews were scraped, forming an initial sample of 43,294 observations.<br />
+<p>All available English language reviews were scraped, forming an initial sample of 47,356 observations.<br />
 3 features were extracted, including:</p>
 <ul class="simple">
 <li><p>Review date</p></li>
@@ -422,16 +445,16 @@ Number of queries 150 reached. Cooldown: 310 seconds
 <span class="n">review_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">review_dict</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">]]</span>
 <span class="n">date</span> <span class="o">=</span> <span class="p">[</span><span class="n">review_dict</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;timestamp_created&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">review_id</span><span class="p">]</span>
 <span class="n">review_text</span> <span class="o">=</span> <span class="p">[</span><span class="n">review_dict</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;review&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">review_id</span><span class="p">]</span>
-<span class="n">classification</span> <span class="o">=</span> <span class="p">[</span><span class="n">review_dict</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;classification&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">review_id</span><span class="p">]</span>
+<span class="n">classification</span> <span class="o">=</span> <span class="p">[</span><span class="n">review_dict</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;voted_up&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">review_id</span><span class="p">]</span>
 
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="n">review_text</span><span class="p">,</span><span class="n">voted_up</span><span class="p">)),</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="n">review_text</span><span class="p">,</span><span class="n">classification</span><span class="p">)),</span>
                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;review_text&#39;</span><span class="p">,</span><span class="s1">&#39;classification&#39;</span><span class="p">])</span>
 
 <span class="c1"># calculate review text length, set as feature</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -497,52 +520,61 @@ Number of queries 150 reached. Cooldown: 310 seconds
       <td>15</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>1668190101</td>
-      <td>full of cheaters ugly looking graphics broken ...</td>
-      <td>False</td>
-      <td>12</td>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>1668190059</td>
-      <td>I have so far only played the campaign and I'v...</td>
-      <td>False</td>
-      <td>42</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>1668190034</td>
-      <td>it is the best cod i have played</td>
+      <th>47439</th>
+      <td>1668420899</td>
+      <td>great guns</td>
       <td>True</td>
-      <td>8</td>
+      <td>2</td>
     </tr>
     <tr>
-      <th>8</th>
-      <td>1668189695</td>
-      <td>it sucks because it encourages violence and sp...</td>
-      <td>False</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>1668189658</td>
-      <td>Activision has still kept the formula for COD ...</td>
+      <th>47440</th>
+      <td>1668420405</td>
+      <td>just kidding lol</td>
       <td>True</td>
-      <td>406</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>47441</th>
+      <td>1668420271</td>
+      <td>At the Moment i would Not recommend to buy thi...</td>
+      <td>False</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>47442</th>
+      <td>1668420246</td>
+      <td>Great game, but has some serious bug issues. W...</td>
+      <td>True</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>47443</th>
+      <td>1668420085</td>
+      <td>Crashes</td>
+      <td>False</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
+<p>47444 rows × 4 columns</p>
 </div></div></div>
 </div>
 <section id="inital-clean-up">
 <h2>Inital Clean-up<a class="headerlink" href="#inital-clean-up" title="Permalink to this headline">#</a></h2>
 <p>Prior to conducting any exploratory analysis, some basic cleaning was performed:</p>
 <ol class="simple">
-<li><p>Replace boolean values for the <code class="docutils literal notranslate"><span class="pre">classification</span></code> variable with strings (‘Positive’, ‘Negative’)</p></li>
+<li><p>Replace boolean values for the <code class="docutils literal notranslate"><span class="pre">classification</span></code> (voted_up) variable with strings (‘Positive’, ‘Negative’)</p></li>
 <li><p>Convert unix timestamp in <code class="docutils literal notranslate"><span class="pre">date</span></code> to datetime (YYYY-MM-DD)</p></li>
+<li><p>Drop all entries with missing review text</p></li>
 </ol>
-<p>The resulting data frame is stored as a .csv for use in subsequent stages of the analysis.</p>
+<p>The resulting data frame is composed of 47,191 observations and is stored as a .csv for use in subsequent stages of the analysis.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -554,9 +586,12 @@ Number of queries 150 reached. Cooldown: 310 seconds
 <span class="c1"># convert unix time stamp to datetime64</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
 
+<span class="c1"># Keep reviews with &gt;=1 word</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/processed_review_data.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -622,42 +657,50 @@ Number of queries 150 reached. Cooldown: 310 seconds
       <td>15</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>2022-11-11</td>
-      <td>full of cheaters ugly looking graphics broken ...</td>
-      <td>Negative</td>
-      <td>12</td>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>2022-11-11</td>
-      <td>I have so far only played the campaign and I'v...</td>
-      <td>Negative</td>
-      <td>42</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2022-11-11</td>
-      <td>it is the best cod i have played</td>
+      <th>47439</th>
+      <td>2022-11-14</td>
+      <td>great guns</td>
       <td>Positive</td>
-      <td>8</td>
+      <td>2</td>
     </tr>
     <tr>
-      <th>8</th>
-      <td>2022-11-11</td>
-      <td>it sucks because it encourages violence and sp...</td>
-      <td>Negative</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>2022-11-11</td>
-      <td>Activision has still kept the formula for COD ...</td>
+      <th>47440</th>
+      <td>2022-11-14</td>
+      <td>just kidding lol</td>
       <td>Positive</td>
-      <td>406</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>47441</th>
+      <td>2022-11-14</td>
+      <td>At the Moment i would Not recommend to buy thi...</td>
+      <td>Negative</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>47442</th>
+      <td>2022-11-14</td>
+      <td>Great game, but has some serious bug issues. W...</td>
+      <td>Positive</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>47443</th>
+      <td>2022-11-14</td>
+      <td>Crashes</td>
+      <td>Negative</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
+<p>47279 rows × 4 columns</p>
 </div></div></div>
 </div>
 </section>
@@ -690,11 +733,11 @@ Number of queries 150 reached. Cooldown: 310 seconds
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="1_intro.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="2_method.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Data Mining Steam Reviews</p>
+            <p class="prev-next-title">Method</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="4_eda.html" title="next page">

@@ -90,6 +90,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/steam_logo.jpg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Using NLP to Extract Insight from Steam Reviews</h1>
@@ -141,7 +146,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="8_Model_Test.html">
-   Load Data
+   Modelling - Testing &amp; Interpretation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_Conclusions.html">
+   Conclusions
   </a>
  </li>
  <li class="toctree-l1">
@@ -208,7 +218,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/5_nlp.ipynb"
+        <a href="https://mybinder.org/v2/gh/r0btaylor/NLP_steam_reviews/master?urlpath=tree/docs/5_nlp.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -251,7 +261,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book"
+        <a href="https://github.com/r0btaylor/NLP_steam_reviews"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -268,7 +278,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F5_nlp.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/r0btaylor/NLP_steam_reviews/issues/new?title=Issue%20on%20page%20%2F5_nlp.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -459,7 +469,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="natural-language-processing">
-<h1>Natural Language Processing<a class="headerlink" href="#natural-language-processing" title="Permalink to this headline">#</a></h1>
+<span id="references-nlp"></span><h1>Natural Language Processing<a class="headerlink" href="#natural-language-processing" title="Permalink to this headline">#</a></h1>
 <p>The following natural language processing pipeline is performed to clean and process text ready for text-based exloratory analysis.</p>
 <p>The NLP pipeline uses the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> package for Python <span id="id1">[<a class="reference internal" href="bibliography.html#id10" title="Matthew Honnibal, Ines Montani, Sofie Van Landeghem, and Adriane Boyd. Spacy: industrial-strength natural language processing in python. 2020. URL: https://github.com/explosion/spaCy, doi:10.5281/zenodo.1212303.">Honnibal <em>et al.</em>, 2020</a>]</span>.</p>
 <p align="center"> <img src="https://i.imgur.com/7zpgIyf.png"> </p><section id="load-data">
@@ -491,6 +501,10 @@ title="Print to PDF"
 <h2>Text Clean-up<a class="headerlink" href="#text-clean-up" title="Permalink to this headline">#</a></h2>
 <p>Here text is cleaned and prepared for the proceeding NLP pipeline.<br />
 At each step, a function is created and mapped to the <code class="docutils literal notranslate"><span class="pre">review_text</span></code> variable.</p>
+<div class="tip admonition">
+<p class="admonition-title">Note</p>
+<p>All functions are also stored in a seperate file .py file to be called again later in model testing.</p>
+</div>
 <section id="lower-case">
 <h3>Lower Case<a class="headerlink" href="#lower-case" title="Permalink to this headline">#</a></h3>
 <p>All capitalisation is removed from the text</p>
@@ -536,23 +550,23 @@ At each step, a function is created and mapped to the <code class="docutils lite
   <tbody>
     <tr>
       <th>0</th>
-      <td>infinityward never fails to deliver</td>
+      <td>not many issues on my end like others are claiming.\n\nhaving a lot of fun with this cod glad movement isn't a big role in this one (slide cancelling)\ngun balance is pretty solid most weapons are...</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>trash fucking game beta was wayy better</td>
+      <td>crashes more than nikita mazepin did in f1</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>;)</td>
+      <td>what can i say?  i bought the game for the single player campaign, i got a game with a single player campaign.  i know it is multiplayer but it isn't really that right now.  what the multiplayer a...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>its even buggier then it was in the beta playtest.</td>
+      <td>is that video game or movie?</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>absolutely gorgeous game that runs very well on my hardware...\n\n...when it runs.\n\ni have never seen another call of duty title be so incredibly unstable and buggy. the game reliably crashes se...</td>
+      <td>mashallah</td>
     </tr>
   </tbody>
 </table>
@@ -656,23 +670,23 @@ At each step, a function is created and mapped to the <code class="docutils lite
   <tbody>
     <tr>
       <th>0</th>
-      <td>infinityward never fails to deliver</td>
+      <td>not many issues on my end like others are claiming.\n\nhaving a lot of fun with this cod glad movement is not a big role in this one (slide cancelling)\ngun balance is pretty solid most weapons ar...</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>trash fucking game beta was wayy better</td>
+      <td>crashes more than nikita mazepin did in f1</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>;)</td>
+      <td>what can i say?  i bought the game for the single player campaign, i got a game with a single player campaign.  i know it is multiplayer but it is not really that right now.  what the multiplayer ...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>its even buggier then it was in the beta playtest.</td>
+      <td>is that video game or movie?</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>absolutely gorgeous game that runs very well on my hardware...\n\n...when it runs.\n\ni have never seen another call of duty title be so incredibly unstable and buggy. the game reliably crashes se...</td>
+      <td>mashallah</td>
     </tr>
   </tbody>
 </table>
@@ -724,122 +738,23 @@ At each step, a function is created and mapped to the <code class="docutils lite
   <tbody>
     <tr>
       <th>0</th>
-      <td>infinityward never fails to deliver</td>
+      <td>not many issues on my end like others are claiming having a lot of fun with this cod glad movement is not a big role in this one slide cancelling gun balance is pretty solid most weapons are good ...</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>trash fucking game beta was wayy better</td>
+      <td>crashes more than nikita mazepin did in f</td>
     </tr>
     <tr>
       <th>2</th>
-      <td></td>
+      <td>what can i say i bought the game for the single player campaign i got a game with a single player campaign i know it is multiplayer but it is not really that right now what the multiplayer aspect ...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>its even buggier then it was in the beta playtest</td>
+      <td>is that video game or movie</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>absolutely gorgeous game that runs very well on my hardware when it runs i have never seen another call of duty title be so incredibly unstable and buggy the game reliably crashes several times in...</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Removal of all non-alpha characters may produce additional reviews without any text.<br />
-Dropping observations is neccessary to prevent errors during the NLP process.</p>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># quantify missing</span>
-<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Missing&#39;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]),</span>
-        <span class="s1">&#39;Present&#39;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]),</span>
-       <span class="s1">&#39;Total&#39;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)},</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Review Text&#39;</span><span class="p">]))</span>
-
-<span class="c1"># drop entries with no review text</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="k">with</span> <span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;review_text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Missing</th>
-      <th>Present</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Review Text</th>
-      <td>594</td>
-      <td>34009</td>
-      <td>34603</td>
-    </tr>
-  </tbody>
-</table>
-</div></div><div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>review_text</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>infinityward never fails to deliver</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>trash fucking game beta was wayy better</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>its even buggier then it was in the beta playtest</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>absolutely gorgeous game that runs very well on my hardware when it runs i have never seen another call of duty title be so incredibly unstable and buggy the game reliably crashes several times in...</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>fun</td>
+      <td>mashallah</td>
     </tr>
   </tbody>
 </table>
@@ -862,8 +777,94 @@ Dropping observations is neccessary to prevent errors during the NLP process.</p
 <span class="c1"># map to all review data</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">consec_dup</span><span class="p">)</span>
 
-<span class="c1"># drop entries with no review text</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">with</span> <span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;review_text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>review_text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>not many issues on my end like others are claiming having a lot of fun with this cod glad movement is not a big role in this one slide cancelling gun balance is pretty solid most weapons are good ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>crashes more than nikita mazepin did in f</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>what can i say i bought the game for the single player campaign i got a game with a single player campaign i know it is multiplayer but it is not really that right now what the multiplayer aspect ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>is that video game or movie</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>mashallah</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="nlp">
+<h3>NLP<a class="headerlink" href="#nlp" title="Permalink to this headline">#</a></h3>
+<p>Here a natural language processing pipeline will be used.</p>
+<p>Several actions will be performed:</p>
+<p><strong>Stop Word Removal</strong>
+A list of common words is supplied from the <code class="docutils literal notranslate"><span class="pre">nltk</span></code> module for Python <span id="id2">[<a class="reference internal" href="bibliography.html#id8" title="Edward Loper and Steven Bird. Nltk: the natural language toolkit. CoRR, 2002. URL: http://dblp.uni-trier.de/db/journals/corr/corr0205.html#cs-CL-0205028.">Loper and Bird, 2002</a>]</span>.</p>
+<p>The frequency of these words is likely to be so high as to provide little analytical value and so they will be removed from the sample.</p>
+<p><strong>Lemmatisation</strong>
+Lemmatisation replaces all words with their base root form which will improve the proceeding text analysis.</p>
+<p>For example: after lemmatisation, ‘leaves’ or ‘leafs’ would both be replaced with ‘leaf’.</p>
+<p>Lemmatisation is provided by  the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> module <span id="id3">[<a class="reference internal" href="bibliography.html#id10" title="Matthew Honnibal, Ines Montani, Sofie Van Landeghem, and Adriane Boyd. Spacy: industrial-strength natural language processing in python. 2020. URL: https://github.com/explosion/spaCy, doi:10.5281/zenodo.1212303.">Honnibal <em>et al.</em>, 2020</a>]</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="c1"># import stopwords and extend list</span>
+<span class="n">stpwrds</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+<span class="n">newStpWrds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;game&quot;</span><span class="p">,</span><span class="s2">&quot;play&quot;</span><span class="p">]</span>
+<span class="n">stpwrds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">newStpWrds</span><span class="p">)</span>
+
+<span class="c1"># create dictionary to increase processing speed</span>
+<span class="n">stpdict</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">stpwrds</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">lemma</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stpdict</span><span class="p">]</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lemma</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
     <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;review_text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
@@ -895,82 +896,27 @@ Dropping observations is neccessary to prevent errors during the NLP process.</p
   <tbody>
     <tr>
       <th>0</th>
-      <td>infinityward never fails to deliver</td>
+      <td>many issue end like other claim lot fun cod glad movement big role one slide cancel gun balance pretty solid weapon good customisation interesting wish old prestige system back one though also nee...</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>trash fucking game beta was wayy better</td>
+      <td>crash nikita mazepin f</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>say buy single player campaign get single player campaign know multiplayer really right multiplayer aspect right mini awesome mini constantly get lockup every time get actually run somewhat well u...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>its even buggier then it was in the beta playtest</td>
+      <td>video movie</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>absolutely gorgeous game that runs very well on my hardware when it runs i have never seen another call of duty title be so incredibly unstable and buggy the game reliably crashes several times in...</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>fun</td>
+      <td>mashallah</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
-</div>
-</section>
-<section id="nlp">
-<h3>NLP<a class="headerlink" href="#nlp" title="Permalink to this headline">#</a></h3>
-<p>Here a natural language processing pipeline will be used.</p>
-<p>Several actions will be performed:</p>
-<p><strong>Stop Word Removal</strong>
-A list of common words is supplied from the <code class="docutils literal notranslate"><span class="pre">nltk</span></code> module for Python <span id="id2">[<a class="reference internal" href="bibliography.html#id8" title="Edward Loper and Steven Bird. Nltk: the natural language toolkit. CoRR, 2002. URL: http://dblp.uni-trier.de/db/journals/corr/corr0205.html#cs-CL-0205028.">Loper and Bird, 2002</a>]</span>.</p>
-<p>The frequency of these words is likely to be so high as to provide little analytical value and so they will be removed from the sample.</p>
-<p><strong>Lemmatisation</strong>
-Lemmatisation replaces all words with their base root form which will improve the proceeding text analysis.</p>
-<p>For example: after lemmatisation, ‘leaves’ or ‘leafs’ would both be replaced with ‘leaf’.</p>
-<p>Lemmatisation is provided by  the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> module <span id="id3">[<a class="reference internal" href="bibliography.html#id10" title="Matthew Honnibal, Ines Montani, Sofie Van Landeghem, and Adriane Boyd. Spacy: industrial-strength natural language processing in python. 2020. URL: https://github.com/explosion/spaCy, doi:10.5281/zenodo.1212303.">Honnibal <em>et al.</em>, 2020</a>]</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span> --no-stderr
-<span class="kn">import</span> <span class="nn">nltk</span>
-<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
-
-<span class="c1"># import stopwords and extend list</span>
-<span class="n">stpwrds</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
-<span class="n">newStpWrds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;game&quot;</span><span class="p">,</span><span class="s2">&quot;play&quot;</span><span class="p">]</span>
-<span class="n">stpwrds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">newStpWrds</span><span class="p">)</span>
-
-<span class="c1"># create dictionary to increase processing speed</span>
-<span class="n">stpdict</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">stpwrds</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">spacy</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_trf&quot;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">lemma</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stpdict</span><span class="p">]</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">text</span>
-
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">lemma</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;review_text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\rob_t\anaconda3\envs\steam_nlp\lib\site-packages\torch\amp\autocast_mode.py:198: UserWarning: User provided device_type of &#39;cuda&#39;, but CUDA is not available. Disabling
-  warnings.warn(&#39;User provided device_type of \&#39;cuda\&#39;, but CUDA is not available. Disabling&#39;)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token indices sequence length is longer than the specified maximum sequence length for this model (1250 &gt; 512). Running this sequence through the model will result in indexing errors
-</pre></div>
-</div>
-</div>
 </div>
 <p>A final check is made to remove entries with no review text.</p>
 <p>Processing obviously now makes the <code class="docutils literal notranslate"><span class="pre">review_length</span></code> feature inaccurate and so it is dropped.</p>
@@ -983,7 +929,7 @@ Lemmatisation replaces all words with their base root form which will improve th
        <span class="s1">&#39;Total&#39;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)},</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Review Text&#39;</span><span class="p">]))</span>
 
 <span class="c1"># drop entries with no review text</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
 <span class="c1"># drop length variable</span>
 <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;review_length&#39;</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -991,7 +937,7 @@ Lemmatisation replaces all words with their base root form which will improve th
 <span class="c1"># write clean training data to csv</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/train_data_lemma.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -1022,9 +968,9 @@ Lemmatisation replaces all words with their base root form which will improve th
   <tbody>
     <tr>
       <th>Review Text</th>
-      <td>246</td>
-      <td>33763</td>
-      <td>34009</td>
+      <td>891</td>
+      <td>36861</td>
+      <td>37752</td>
     </tr>
   </tbody>
 </table>
@@ -1054,36 +1000,73 @@ Lemmatisation replaces all words with their base root form which will improve th
   <tbody>
     <tr>
       <th>0</th>
-      <td>2022-10-28</td>
-      <td>infinityward never fail deliver</td>
+      <td>2022-11-01</td>
+      <td>many issue end like other claim lot fun cod gl...</td>
       <td>Positive</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2022-10-29</td>
-      <td>trash fucking beta wayy well</td>
+      <td>2022-10-30</td>
+      <td>crash nikita mazepin f</td>
+      <td>Negative</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2022-11-11</td>
+      <td>say buy single player campaign get single play...</td>
       <td>Negative</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2022-10-28</td>
-      <td>even buggy beta playtest</td>
-      <td>Negative</td>
+      <td>video movie</td>
+      <td>Positive</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2022-11-03</td>
-      <td>absolutely gorgeous run well hardware run neve...</td>
+      <td>2022-11-07</td>
+      <td>mashallah</td>
+      <td>Positive</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>37746</th>
+      <td>2022-10-31</td>
+      <td>probably favorite call duty date modern warfar...</td>
+      <td>Positive</td>
+    </tr>
+    <tr>
+      <th>37747</th>
+      <td>2022-11-08</td>
+      <td>holy moly turn brain run like idiot shitty aim...</td>
+      <td>Positive</td>
+    </tr>
+    <tr>
+      <th>37748</th>
+      <td>2022-10-28</td>
+      <td>glad cod per year pay worth bug</td>
       <td>Negative</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>2022-11-04</td>
-      <td>fun</td>
+      <th>37749</th>
+      <td>2022-10-31</td>
+      <td>call camp modern fatass</td>
       <td>Positive</td>
+    </tr>
+    <tr>
+      <th>37750</th>
+      <td>2022-11-02</td>
+      <td>always crash</td>
+      <td>Negative</td>
     </tr>
   </tbody>
 </table>
+<p>36861 rows × 3 columns</p>
 </div></div></div>
 </div>
 </section>
