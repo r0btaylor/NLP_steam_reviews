@@ -51,12 +51,12 @@ import seaborn as sns
 sns.set_style('whitegrid')
 ax = sns.countplot(x="classification", 
               data=df, 
-              palette = ['#88D8B0', '#FF6F69'])
+              palette = ['#FF6F69','#88D8B0'])
 
 # add annotations
 for c in ax.containers:
-    labels = [f"{len(df[df['classification']=='Positive'])/(len(df[df['classification']=='Positive'])+len(df[df['classification']=='Negative']))*100:0.0f}%",
-              f"{len(df[df['classification']=='Negative'])/(len(df[df['classification']=='Negative'])+len(df[df['classification']=='Positive']))*100:0.0f}%"]
+    labels = [f"{len(df[df['classification']=='Negative'])/(len(df[df['classification']=='Negative'])+len(df[df['classification']=='Positive']))*100:0.0f}%",
+              f"{len(df[df['classification']=='Positive'])/(len(df[df['classification']=='Positive'])+len(df[df['classification']=='Negative']))*100:0.0f}%"]
     ax.bar_label(c, labels=labels, label_type='edge')
 
 plt.title('Positive vs Negative Reviews',fontsize=14)
@@ -103,7 +103,7 @@ display(pd.DataFrame({'All': df['review_length'],
 sns.boxplot(y = 'classification', 
     x = 'review_length', 
     data = df, 
-    palette = ['#88D8B0', '#FF6F69'],
+    palette = ['#FF6F69','#88D8B0'],
    showfliers = False)
 plt.ylabel('')
 plt.xlabel('Review Length (Words)')
@@ -118,7 +118,7 @@ plt.title('Distribution of Review Lengths\n(Outliers Suppressed)');
 # plot mean review length over time
 ax =sns.lineplot(x=sorted(df['date'].dt.strftime('%m %d')),
             y='review_length',
-            palette = ['#88D8B0', '#FF6F69'],
+            palette = ['#FF6F69','#88D8B0'],
             hue='classification',
             data=df,
             )
